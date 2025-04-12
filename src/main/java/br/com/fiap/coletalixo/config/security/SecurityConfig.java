@@ -40,7 +40,7 @@ public class SecurityConfig {
                         .requestMatchers("/auth/**").permitAll() // <-- libera tudo no /auth
                         .requestMatchers(HttpMethod.GET, "/agendamento").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/agendamento/**").hasRole("ADMIN")
-                        .anyRequest().hasRole("USER")
+                        .anyRequest().authenticated()
                 )
                 .addFilterBefore(verificarToken, UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling(exception -> exception.authenticationEntryPoint(new UnauthorizedHandler()))
