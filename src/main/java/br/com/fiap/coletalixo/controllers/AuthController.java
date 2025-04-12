@@ -31,6 +31,7 @@ public class AuthController {
     @PostMapping("/login")
     @ResponseStatus(HttpStatus.OK)
     public TokenDTO login(@RequestBody @Valid LoginDTO usuarioDto) {
+        System.out.println("Requisição de login recebida");
         UsernamePasswordAuthenticationToken usernamePassword =
                 new UsernamePasswordAuthenticationToken(
                         usuarioDto.email(),
@@ -45,6 +46,7 @@ public class AuthController {
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
     public UsuarioExibicaoDto registrar(@RequestBody @Valid UsuarioCadastroDto usuarioCadastroDTO) {
+        System.out.println("Requisição de register recebida");
         return usuarioService.salvarUsuario(usuarioCadastroDTO);
     }
 }
