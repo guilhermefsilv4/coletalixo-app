@@ -42,7 +42,9 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/agendamento").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/agendamento/**").hasRole("ADMIN")
                         .anyRequest()
-                        .hasRole("USER"))
+                        .hasRole("USER")
+                        .requestMatchers(HttpMethod.POST, "/auth/**").permitAll()
+                )
                 .addFilterBefore(
                         verificarToken,
                         UsernamePasswordAuthenticationFilter.class
