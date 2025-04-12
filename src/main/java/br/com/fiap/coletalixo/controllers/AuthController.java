@@ -10,6 +10,7 @@ import br.com.fiap.coletalixo.services.UsuarioService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -48,5 +49,10 @@ public class AuthController {
     public UsuarioExibicaoDto registrar(@RequestBody @Valid UsuarioCadastroDto usuarioCadastroDTO) {
         System.out.println("Requisição de register recebida");
         return usuarioService.salvarUsuario(usuarioCadastroDTO);
+    }
+
+    @GetMapping("/test")
+    public ResponseEntity<?> test() {
+        return ResponseEntity.ok("✅ Auth liberado");
     }
 }
