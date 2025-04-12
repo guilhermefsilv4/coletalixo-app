@@ -50,9 +50,4 @@ public class AuthController {
         System.out.println("Requisição de register recebida");
         return usuarioService.salvarUsuario(usuarioCadastroDTO);
     }
-
-    @GetMapping("/test")
-    public ResponseEntity<?> test() {
-        return ResponseEntity.ok("✅ Auth liberado");
-    }
 }
