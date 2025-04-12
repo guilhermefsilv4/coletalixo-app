@@ -39,13 +39,3 @@ jobs:
           docker build \
             --build-arg JAR_FILE=target/coletalixo-0.0.1-SNAPSHOT.jar \
             -t coletalixo-app .
-
-      - name: Testar imagem (opcional)
-        run: |
-          docker run --rm \
-            -e PROD_DB_URL=$PROD_DB_URL \
-            -e PROD_DB_USERNAME=$PROD_DB_USERNAME \
-            -e PROD_DB_PASSWORD=$PROD_DB_PASSWORD \
-            -e PROD_SECURITY_PASSWORD=$PROD_SECURITY_PASSWORD \
-            -e JWT_SECRET=$JWT_SECRET \
-            -p 8080:8080 coletalixo-app
