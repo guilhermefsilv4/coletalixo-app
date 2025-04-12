@@ -10,7 +10,8 @@ class ColetalixoApplicationTests {
 
 	@Test
 	void contextLoads() {
-		fail("Teste CI com erro no test");
+//		fail("Teste CI com erro no test");
+		// Corrigindo falha para ver resultado no CI
 	}
 
 }
