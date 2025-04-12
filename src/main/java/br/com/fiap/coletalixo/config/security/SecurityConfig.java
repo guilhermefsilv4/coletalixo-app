@@ -38,6 +38,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         // Permitir acesso público a /auth/**
                         .requestMatchers(HttpMethod.POST, "/auth/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/auth/**").permitAll()
 
                         // Rotas administrativas
                         .requestMatchers(HttpMethod.GET, "/agendamento").hasRole("ADMIN")
