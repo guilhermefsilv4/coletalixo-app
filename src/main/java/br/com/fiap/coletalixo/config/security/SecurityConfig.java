@@ -65,7 +65,7 @@ public class SecurityConfig {
             response.setCharacterEncoding("UTF-8");
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 
-            response.getWriter().write("{\"erro\": \"Acesso não autorizado. \"}");
+            response.getWriter().write("{\"erro\": \"Acesso não autorizado 2.0. \"}");
         }
     }
 
