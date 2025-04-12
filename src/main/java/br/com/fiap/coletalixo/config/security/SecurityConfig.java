@@ -31,24 +31,18 @@ public class SecurityConfig {
     private VerificarToken verificarToken;
 
     @Bean
-    public SecurityFilterChain filtrarCadeiaDeSeguranca(HttpSecurity httpSecurity) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(authorize -> authorize
-                        // Permitir acesso público a /auth/**
-                        .requestMatchers(HttpMethod.POST, "/auth/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/auth/**").permitAll()
-
-                        // Rotas administrativas
+                .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/auth/**").permitAll() // <-- libera tudo no /auth
                         .requestMatchers(HttpMethod.GET, "/agendamento").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/agendamento/**").hasRole("ADMIN")
-
-                        // Qualquer outra rota requer USER
                         .anyRequest().hasRole("USER")
                 )
                 .addFilterBefore(verificarToken, UsernamePasswordAuthenticationFilter.class)
-//                .exceptionHandling(exception -> exception.authenticationEntryPoint(new UnauthorizedHandler()))
+                .exceptionHandling(exception -> exception.authenticationEntryPoint(new UnauthorizedHandler()))
                 .build();
     }
 

@@ -53,6 +53,7 @@ public class VerificarToken extends OncePerRequestFilter {
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
         String path = request.getRequestURI();
+        System.out.println("🔍 Rota recebida: " + path);
         return path.startsWith("/auth");
     }
 }
