@@ -48,7 +48,7 @@ public class SecurityConfig {
                         .anyRequest().hasRole("USER")
                 )
                 .addFilterBefore(verificarToken, UsernamePasswordAuthenticationFilter.class)
-                .exceptionHandling(exception -> exception.authenticationEntryPoint(new UnauthorizedHandler()))
+//                .exceptionHandling(exception -> exception.authenticationEntryPoint(new UnauthorizedHandler()))
                 .build();
     }
 
