@@ -33,8 +33,8 @@ jobs:
           git branch
           java --version
 
-      - name: Build com perfil dev
-        run: mvn clean package -Dspring.profiles.active=dev
+      - name: Build com perfil prod
+        run: mvn clean package -Dspring.profiles.active=prod
 
       - name: Run Unit Tests
-        run: mvn test -Dspring.profiles.active=dev
+        run: mvn test -Dspring.profiles.active=prod
