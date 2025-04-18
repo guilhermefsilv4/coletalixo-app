@@ -1,11 +1,6 @@
 name: Continuous Integration
 
 on:
-  pull_request:
-    types: [ opened, reopened ]
-    branches:
-      - main
-      - develop
   push:
     branches:
       - main
@@ -14,15 +9,32 @@ on:
 jobs:
   run-tests:
     runs-on: ubuntu-latest
+
+    env:
+      PROD_DB_URL: ${{ secrets.PROD_DB_URL }}
+      PROD_DB_USERNAME: ${{ secrets.PROD_DB_USERNAME }}
+      PROD_DB_PASSWORD: ${{ secrets.PROD_DB_PASSWORD }}
+      PROD_SECURITY_PASSWORD: ${{ secrets.PROD_SECURITY_PASSWORD }}
+      JWT_SECRET: ${{ secrets.JWT_SECRET }}
+
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4
 
-      - name: Set up Java SDK
+      - name: Setup Java SDK
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '21'
+
+      - name: Mostrar branch e versão do Java
+        run: |
+          echo "Branch atual:"
+          git branch
+          java --version
+
+      - name: Build com perfil prod
+        run: mvn clean package -Dspring.profiles.active=prod
 
       - name: Run Unit Tests
         run: mvn test
