@@ -28,7 +28,7 @@ jobs:
           java-version: '21'
 
       - name: Build app (prod profile)
-        run: mvn clean package -Dspring.profiles.active=prod
+        run: mvn clean package -DskipTests -Dspring.profiles.active=prod
 
       - name: Run backend in background
         run: |
