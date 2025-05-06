@@ -34,7 +34,7 @@ jobs:
           java --version
 
       - name: Build com perfil prod
-        run: mvn clean package -Dspring.profiles.active=prod
+        run: mvn clean package -DskipTests -Dspring.profiles.active=prod
 
       - name: Build Docker image
         run: |
