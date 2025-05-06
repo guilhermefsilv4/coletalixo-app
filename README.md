@@ -1,4 +1,3 @@
-
 # Coleta Lixo
 
 **Descrição**: Este projeto é uma aplicação Java que utiliza o framework Spring Boot para gerenciar e realizar a coleta de lixo.
@@ -27,24 +26,24 @@ Antes de iniciar, certifique-se de que você tem os seguintes requisitos instala
    ```bash
    git clone https://github.com/guilhermefsilv4/coletalixo-app.git
    cd coletalixo-app
-   
+
 2. **Construa a imagem**
 
-    #### No diretório onde o Dockerfile está localizado, execute:
+   #### No diretório onde o Dockerfile está localizado, execute:
 
     ```bash
     docker build -t nome-da-imagem .
     ```
-    Inicie o contêiner
+   Inicie o contêiner
 
 3. **Após a construção, inicie o contêiner com:**
 
     ```bash
     docker run -p 8080:8080 nome-da-imagem
     ```
-    Acesse a aplicação
+   Acesse a aplicação
 
-    #### Após iniciar o contêiner, a aplicação estará disponível em http://localhost:8080.
+   #### Após iniciar o contêiner, a aplicação estará disponível em http://localhost:8080.
 
 
 ### Usando Docker Compose
@@ -56,14 +55,14 @@ Antes de iniciar, certifique-se de que você tem os seguintes requisitos instala
     git clone https://github.com/guilhermefsilv4/coletalixo-app.git
     cd coletalixo-app
     ```
-    Inicie a aplicação com Docker Compose
+   Inicie a aplicação com Docker Compose
 
-    **Para construir a imagem e iniciar a aplicação, execute:**
+   **Para construir a imagem e iniciar a aplicação, execute:**
     ```bash
     docker-compose up --build
     ```
-    Acesse a aplicação
-    #### Após iniciar o contêiner, a aplicação estará disponível em http://localhost:8080.
+   Acesse a aplicação
+   #### Após iniciar o contêiner, a aplicação estará disponível em http://localhost:8080.
 
 ## ⚙️ Configurações Adicionais
 
@@ -71,7 +70,7 @@ Antes de iniciar, certifique-se de que você tem os seguintes requisitos instala
 
 SPRING_PROFILES_ACTIVE=prod para a configuração de produção.
 
-## ⛔ Parar os Contêineres 
+## ⛔ Parar os Contêineres
 ### Para parar os contêineres em execução, você pode usar:
 
 ```bash

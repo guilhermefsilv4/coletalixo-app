@@ -1,11 +1,6 @@
 name: Continuous Integration
 
 on:
-  pull_request:
-    types: [ opened, reopened ]
-    branches:
-      - main
-      - develop
   push:
     branches:
       - main
@@ -14,15 +9,39 @@ on:
 jobs:
   run-tests:
     runs-on: ubuntu-latest
+
+    env:
+      PROD_DB_URL: ${{ secrets.PROD_DB_URL }}
+      PROD_DB_USERNAME: ${{ secrets.PROD_DB_USERNAME }}
+      PROD_DB_PASSWORD: ${{ secrets.PROD_DB_PASSWORD }}
+      PROD_SECURITY_PASSWORD: ${{ secrets.PROD_SECURITY_PASSWORD }}
+      JWT_SECRET: ${{ secrets.JWT_SECRET }}
+
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4
 
-      - name: Set up Java SDK
+      - name: Setup Java SDK
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '21'
 
-      - name: Run Unit Tests
-        run: mvn test
+      - name: Build app (prod profile)
+        run: mvn clean package -DskipTests -Dspring.profiles.active=prod
+
+      - name: Run backend in background
+        run: |
+          nohup java -jar target/*.jar --spring.profiles.active=prod &
+
+      - name: Wait for backend to be ready
+        run: |
+          for i in {1..30}; do
+            nc -z localhost 8080 && echo "Backend is up!" && exit 0
+            echo "Waiting for backend..."
+            sleep 3
+          done
+          echo "Backend did not start in time" && exit 1
+
+      - name: Run integration tests
+        run: mvn test -Dspring.profiles.active=prod

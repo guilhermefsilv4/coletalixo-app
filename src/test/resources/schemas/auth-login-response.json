@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": [
+    "token"
+  ],
+  "properties": {
+    "token": {
+      "type": "string",
+      "description": "JWT token para autenticação nas demais APIs",
+      "minLength": 10
+    }
+  },
+  "additionalProperties": false
+} 
