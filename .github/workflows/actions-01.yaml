@@ -2,7 +2,9 @@ name: 03 - Actions - 01
 
 on:
   push:
-    branches: ["feature/**"]
+    branches:
+        - main
+        - develop
 
 jobs:
   build_and_package:

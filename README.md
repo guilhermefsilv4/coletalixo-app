@@ -89,3 +89,18 @@ docker-compose down
   ```bash
   docker ps -a
   ```
+
+## 🧪 Como Rodar os Testes
+
+Certifique-se de que o projeto está em execução antes de rodar os testes. Siga os passos abaixo:
+
+### 1. Inicie o projeto
+
+Certifique-se de que a aplicação está rodando. Você pode iniciar o projeto utilizando o Docker ou o Docker Compose, ou até abrindo a ides como intellij e apertando na setinha verde, conforme descrito na seção **🚀 Como Inicializar e Executar o Projeto**.
+
+### 2. Execute os testes
+
+No diretório raiz do projeto, utilize o seguinte comando para rodar os testes:
+
+```bash
+mvn test -Dspring.profiles.active=dev
