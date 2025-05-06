@@ -3,8 +3,8 @@ name: 03 - Actions - 01
 on:
   push:
     branches:
-        - main
-        - develop
+      - main
+      - develop
 
 jobs:
   build_and_package:
@@ -33,7 +33,7 @@ jobs:
           git branch
           java --version
 
-      - name: Build com perfil prod
+      - name: Build com perfil prod (sem rodar testes)
         run: mvn clean package -DskipTests -Dspring.profiles.active=prod
 
       - name: Build Docker image
@@ -41,3 +41,21 @@ jobs:
           docker build \
             --build-arg JAR_FILE=target/coletalixo-0.0.1-SNAPSHOT.jar \
             -t coletalixo-app .
+
+      - name: Run Docker image (test startup only)
+        run: |
+          docker run -d --name coletalixo-test \
+            -e PROD_DB_URL="${{ secrets.PROD_DB_URL }}" \
+            -e PROD_DB_USERNAME="${{ secrets.PROD_DB_USERNAME }}" \
+            -e PROD_DB_PASSWORD="${{ secrets.PROD_DB_PASSWORD }}" \
+            -e PROD_SECURITY_PASSWORD="${{ secrets.PROD_SECURITY_PASSWORD }}" \
+            -e JWT_SECRET="${{ secrets.JWT_SECRET }}" \
+            coletalixo-app
+          sleep 20
+
+      - name: Encerrar e remover container
+        if: always()
+        run: |
+          docker logs coletalixo-test || true
+          docker stop coletalixo-test || true
+          docker rm coletalixo-test || true
