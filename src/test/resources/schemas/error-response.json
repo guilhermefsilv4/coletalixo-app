@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "oneOf": [
+    {
+      "type": "object",
+      "required": ["erro"],
+      "properties": {
+        "erro": {
+          "type": "string",
+          "description": "Mensagem de erro genérica"
+        }
+      },
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "minProperties": 1,
+      "description": "Mapa de erros de validação de campos",
+      "additionalProperties": {
+        "type": "string",
+        "description": "Mensagem de erro associada ao campo"
+      }
+    }
+  ]
+} 

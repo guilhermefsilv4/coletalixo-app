@@ -27,14 +27,21 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
 
-      - name: Mostrar branch e versão do Java
-        run: |
-          echo "Branch atual:"
-          git branch
-          java --version
-
-      - name: Build com perfil prod
+      - name: Build app (prod profile)
         run: mvn clean package -Dspring.profiles.active=prod
 
-      - name: Run Unit Tests
+      - name: Run backend in background
+        run: |
+          nohup java -jar target/*.jar --spring.profiles.active=prod &
+
+      - name: Wait for backend to be ready
+        run: |
+          for i in {1..30}; do
+            nc -z localhost 8080 && echo "Backend is up!" && exit 0
+            echo "Waiting for backend..."
+            sleep 3
+          done
+          echo "Backend did not start in time" && exit 1
+
+      - name: Run integration tests
         run: mvn test -Dspring.profiles.active=prod
